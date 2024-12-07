@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Calculadora Agrícola - Tema 2</title>
+  <style>
+    body {
+      font-family: 'Roboto', Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background: #1d3557;
+      color: #f1faee;
+    }
+    .container {
+      max-width: 700px;
+      margin: 50px auto;
+      background: #ffffff;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+    }
+    h1 {
+      text-align: center;
+      color: #1d3557;
+      margin-bottom: 20px;
+    }
+    label {
+      font-weight: bold;
+      color: #1d3557;
+      display: block;
+      margin: 10px 0 5px;
+    }
+    select, input, button {
+      width: 100%;
+      padding: 12px;
+      margin: 10px 0;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      font-size: 16px;
+      box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+    button {
+      background: #457b9d;
+      color: #fff;
+      border: none;
+      font-weight: bold;
+      transition: background 0.3s;
+      cursor: pointer;
+    }
+    button:hover {
+      background: #1d3557;
+    }
+    .result {
+      margin-top: 20px;
+      font-weight: bold;
+      text-align: center;
+      background: #f1faee;
+      padding: 15px;
+      border-radius: 6px;
+      color: #1d3557;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    }
+    .info-icon {
+      font-size: 16px;
+      color: #457b9d;
+      margin-left: 5px;
+      cursor: help;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Calculadora Agrícola - Tema 2</h1>
+    <label for="formula" title="Selecione uma fórmula para calcular. Cada fórmula representa um cálculo agrícola essencial.">Escolha a fórmula: <span style="cursor: help;" title="Selecione uma fórmula para calcular. Cada fórmula representa um cálculo agrícola essencial.">ℹ️</span></label>
+    <select id="formula" onchange="updateForm()">
+      <option value="">-- Selecione --</option>
+      <option value="dpa" title="Depreciação Anual (DPA): Calcula a redução do valor de um ativo ao longo do tempo.">Depreciação Anual (DPA) <span style="cursor: help;" title="Depreciação Anual (DPA): Calcula a redução do valor de um ativo ao longo do tempo.">ℹ️</span></option>
+      <option value="jra" title="Juros Anuais (JRA): Calcula os juros acumulados anualmente sobre o capital investido.">Juros Anuais (JRA) <span style="cursor: help;" title="Juros Anuais (JRA): Calcula os juros acumulados anualmente sobre o capital investido.">ℹ️</span></option>
+      <option value="asta" title="Alojamento, Seguros e Taxas (ASTA): Estima os custos indiretos associados ao equipamento.">Alojamento, Seguros e Taxas (ASTA) <span style="cursor: help;" title="Alojamento, Seguros e Taxas (ASTA): Estima os custos indiretos associados ao equipamento.">ℹ️</span></option>
+      <option value="cfh" title="Custo Fixo Horário (CFH): Calcula os custos fixos por hora de operação de um equipamento.">Custo Fixo Horário (CFH) <span style="cursor: help;" title="Custo Fixo Horário (CFH): Calcula os custos fixos por hora de operação de um equipamento.">ℹ️</span></option>
+      <option value="ccb" title="Custo de Combustível (CCB): Calcula o gasto com combustível durante a operação.">Custo de Combustível (CCB) <span style="cursor: help;" title="Custo de Combustível (CCB): Calcula o gasto com combustível durante a operação.">ℹ️</span></option>
+      <option value="crm" title="Custo de Reparos e Manutenção (CRM): Estima os custos associados à manutenção e reparos.">Custo de Reparos e Manutenção (CRM) <span style="cursor: help;" title="Custo de Reparos e Manutenção (CRM): Estima os custos associados à manutenção e reparos.">ℹ️</span></option>
+      <option value="cvh" title="Custo Variável Horário (CVH): Calcula os custos variáveis por hora de operação.">Custo Variável Horário (CVH) <span style="cursor: help;" title="Custo Variável Horário (CVH): Calcula os custos variáveis por hora de operação.">ℹ️</span></option>
+      <option value="cop" title="Custo Operacional Total (COP): Soma os custos fixos e variáveis por unidade operacional.">Custo Operacional Total (COP) <span style="cursor: help;" title="Custo Operacional Total (COP): Soma os custos fixos e variáveis por unidade operacional.">ℹ️</span></option>
+      <option value="cco" title="Capacidade de Campo Operacional (CCO): Mede a eficiência de um equipamento em hectares por hora.">Capacidade de Campo Operacional (CCO) <span style="cursor: help;" title="Capacidade de Campo Operacional (CCO): Mede a eficiência de um equipamento em hectares por hora.">ℹ️</span></option>
+    <option value="td" title="Tempo Disponível (TD): Calcula o tempo disponível para operações agrícolas considerando dias úteis e eficiência gerencial.">Tempo Disponível (TD) <span style="cursor: help;" title="Tempo Disponível (TD): Calcula o tempo disponível para operações agrícolas considerando dias úteis e eficiência gerencial.">ℹ️</span></option>
+      <option value="ro" title="Ritmo Operacional (RO): Determina a área coberta por unidade de tempo com base na capacidade operacional.">Ritmo Operacional (RO) <span style="cursor: help;" title="Ritmo Operacional (RO): Determina a área coberta por unidade de tempo com base na capacidade operacional.">ℹ️</span></option>
+      <option value="du" title="Cálculo de Dias Úteis (DU): Calcula o número de dias disponíveis para trabalho considerando feriados e condições climáticas.">Cálculo de Dias Úteis (DU) <span style="cursor: help;" title="Cálculo de Dias Úteis (DU): Calcula o número de dias disponíveis para trabalho considerando feriados e condições climáticas.">ℹ️</span></option>
+    </select>
+
+    <div id="inputFields"></div>
+    <button onclick="calculate()">Calcular</button>
+    <button onclick="openHelp()" style="background: #4caf50; margin-top: 10px;">Ajuda</button>
+    <div class="result" id="result"></div>
+  </div>
+
+  <script>
+    const inputFields = document.getElementById('inputFields');
+    const resultDiv = document.getElementById('result');
+
+    function updateForm() {
+      const formula = document.getElementById('formula').value;
+      let fields = '';
+      resultDiv.textContent = '';
+
+      switch (formula) {
+        case 'dpa':
+          fields = '<label>Valor Inicial (VI) - Valor de compra do equipamento: <input type="number" id="vi"></label>' +
+                   '<label>Valor Final (VF) - Valor residual após vida útil: <input type="number" id="vf"></label>' +
+                   '<label>Vida Útil em Anos (VUA) - Duração estimada do equipamento: <input type="number" id="vua"></label>';
+          break;
+        case 'jra':
+          fields = '<label>Valor Inicial (VI): <input type="number" id="vi"></label>' +
+                   '<label>Valor Final (VF): <input type="number" id="vf"></label>' +
+                   '<label>Taxa de Juros Anual (%) - Taxa aplicada ao capital: <input type="number" step="0.01" id="taxa"></label>';
+          break;
+        case 'asta':
+          fields = '<label>Valor Inicial (VI): <input type="number" id="vi"></label>' +
+                   '<label>Fator ASTA (%) - Proporção de custos indiretos: <input type="number" step="0.01" id="fator"></label>';
+          break;
+        case 'cfh':
+          fields = '<label>DPA - Depreciação Anual: <input type="number" id="dpa"></label>' +
+                   '<label>JRA - Juros Anuais: <input type="number" id="jra"></label>' +
+                   '<label>ASTA - Alojamento, Seguros e Taxas: <input type="number" id="asta"></label>' +
+                   '<label>Horas de Utilização Anual (HUA) - Tempo anual de uso: <input type="number" id="hua"></label>';
+          break;
+        case 'ccb':
+          fields = '<label>Consumo de Combustível (litros/hora) - Gasto médio de combustível: <input type="number" id="cc"></label>' +
+                   '<label>Preço do Combustível (R$/litro) - Valor unitário do combustível: <input type="number" step="0.01" id="pc"></label>';
+          break;
+        case 'crm':
+          fields = '<label>Valor Inicial (VI): <input type="number" id="vi"></label>' +
+                   '<label>Fator de Reparos e Manutenção (FRM) - Percentual estimado para manutenção: <input type="number" step="0.01" id="frm"></label>' +
+                   '<label>Vida Útil em Horas (VUH) - Tempo estimado de uso do equipamento: <input type="number" id="vuh"></label>';
+          break;
+        case 'cvh':
+          fields = '<label>CCB - Custo de Combustível: <input type="number" id="ccb"></label>' +
+                   '<label>CRM - Custo de Reparos e Manutenção: <input type="number" id="crm"></label>';
+          break;
+        case 'cop':
+          fields = '<label>CFH - Custo Fixo Horário: <input type="number" id="cfh"></label>' +
+                   '<label>CVH - Custo Variável Horário: <input type="number" id="cvh"></label>' +
+                   '<label>CCO - Capacidade de Campo Operacional: <input type="number" id="cco"></label>';
+          break;
+        case 'cco':
+          fields = '<label>Largura Efetiva (LE) - Largura do equipamento em metros: <input type="number" id="le"></label>' +
+                   '<label>Velocidade Efetiva (VE) - Velocidade operacional em km/h: <input type="number" id="ve"></label>' +
+                   '<label>Eficiência de Campo (EC) - Percentual de eficiência no campo: <input type="number" step="0.01" id="ec"></label>';
+          break;
+        case 'td':
+          fields = '<label>Dias Úteis (DU): <input type="number" id="du"></label>' +
+                   '<label>Jornada de Trabalho (JT): <input type="number" id="jt"></label>' +
+                   '<label>Eficiência Gerencial (EG) - Percentual de eficiência: <input type="number" step="0.01" id="eg"></label>';
+          break;
+        case 'ro':
+          fields = '<label>Capacidade Operacional (CO): <input type="number" id="co"></label>' +
+                   '<label>Eficiência de Campo (EC): <input type="number" step="0.01" id="ec"></label>';
+          break;
+        case 'du':
+          fields = '<label>Dias Totais (DT): <input type="number" id="dt"></label>' +
+                   '<label>Dias Feriados (DF): <input type="number" id="df"></label>' +
+                   '<label>Dias Úteis Impróprios (DUI): <input type="number" id="dui"></label>';
+          break;
+        default:
+          fields = '';
+      }
+
+      inputFields.innerHTML = fields;
+    }
+
+    function calculate() {
+      const formula = document.getElementById('formula').value;
+      let result = '';
+
+      try {
+        switch (formula) {
+          case 'dpa':
+            const vi = parseFloat(document.getElementById('vi').value);
+            const vf = parseFloat(document.getElementById('vf').value);
+            const vua = parseFloat(document.getElementById('vua').value);
+            result = `Depreciação Anual (DPA): ${(vi - vf) / vua} unidades por ano anos`;
+            break;
+          case 'jra':
+            const taxa = parseFloat(document.getElementById('taxa').value) / 100;
+            result = `Juros Anuais (JRA): ${((vi + vf) / 2) * taxa} reais por ano`;
+            break;
+          case 'asta':
+            const fator = parseFloat(document.getElementById('fator').value) / 100;
+            result = `Alojamento, Seguros e Taxas (ASTA): ${vi * fator} reais`;
+            break;
+          case 'cfh':
+            const dpa = parseFloat(document.getElementById('dpa').value);
+            const jra = parseFloat(document.getElementById('jra').value);
+            const asta = parseFloat(document.getElementById('asta').value);
+            const hua = parseFloat(document.getElementById('hua').value);
+            result = `Custo Fixo Horário (CFH): ${(dpa + jra + asta) / hua} reais por hora`;
+            break;
+          case 'ccb':
+            const cc = parseFloat(document.getElementById('cc').value);
+            const pc = parseFloat(document.getElementById('pc').value);
+            result = `Custo de Combustível (CCB): ${cc * pc} reais por hora`;
+            break;
+          case 'crm':
+            const frm = parseFloat(document.getElementById('frm').value) / 100;
+            const vuh = parseFloat(document.getElementById('vuh').value);
+            result = `Custo de Reparos e Manutenção (CRM): ${(vi * frm) / vuh} reais por hora`;
+            break;
+          case 'cvh':
+            const ccb = parseFloat(document.getElementById('ccb').value);
+            const crm = parseFloat(document.getElementById('crm').value);
+            result = `Custo Variável Horário (CVH): ${ccb + crm} reais por hora`;
+            break;
+          case 'cop':
+            const cfh = parseFloat(document.getElementById('cfh').value);
+            const cvh = parseFloat(document.getElementById('cvh').value);
+            const cco = parseFloat(document.getElementById('cco').value);
+            result = `Custo Operacional Total (COP): ${(cfh + cvh) / cco} reais por hectare`;
+            break;
+          case 'cco':
+            const le = parseFloat(document.getElementById('le').value);
+            const ve = parseFloat(document.getElementById('ve').value);
+            const ec = parseFloat(document.getElementById('ec').value) / 100;
+            result = `Capacidade de Campo Operacional (CCO): ${(le * ve * ec) / 10} hectares por hora`;
+            break;
+          case 'td':
+            const du = parseFloat(document.getElementById('du').value);
+            const jt = parseFloat(document.getElementById('jt').value);
+            const eg = parseFloat(document.getElementById('eg').value) / 100;
+            result = `Tempo Disponível (TD): ${du * jt * eg} horas disponíveis`;
+            break;
+          case 'ro':
+            const co = parseFloat(document.getElementById('co').value);
+            const roEc = parseFloat(document.getElementById('ec').value) / 100;
+            result = `Ritmo Operacional (RO): ${co * roEc} hectares por hora`;
+            break;
+          case 'du':
+            const dt = parseFloat(document.getElementById('dt').value);
+            const df = parseFloat(document.getElementById('df').value);
+            const dui = parseFloat(document.getElementById('dui').value);
+            result = `Dias Úteis (DU): ${dt - df - dui} dias úteis`;
+            break;
+          default:
+            result = 'Selecione uma fórmula válida.';
+        }
+      } catch (error) {
+        result = 'Erro nos cálculos. Verifique os valores inseridos.';
+      }
+
+      resultDiv.textContent = result;
+    }
+  </script>
+<footer style="text-align: center; margin-top: 20px; font-size: 14px; color: #fff;">
+    Unidade Curricular de Agricultura de Precisão e Controle Operacional de Máquinas e Equipamentos
+  </footer>
+  <footer style="text-align: center; margin-top: 20px; font-size: 14px; color: #fff;">
+    Desenvolvido por Diego Hemkemeier Silva
+  </footer>
+<script>
+    function openHelp() {
+      const helpText = `
+        Bem-vindo à Calculadora de Fórmulas! Aqui estão os cálculos disponíveis:
+        
+        1. Depreciação Anual (DPA): Calcula a redução do valor de um ativo ao longo do tempo.
+        2. Juros Anuais (JRA): Calcula os juros acumulados anualmente sobre o capital investido.
+        3. Alojamento, Seguros e Taxas (ASTA): Estima os custos indiretos associados ao equipamento.
+        4. Custo Fixo Horário (CFH): Calcula os custos fixos por hora de operação de um equipamento.
+        5. Custo de Combustível (CCB): Calcula o gasto com combustível durante a operação.
+        6. Custo de Reparos e Manutenção (CRM): Estima os custos associados à manutenção e reparos.
+        7. Custo Variável Horário (CVH): Calcula os custos variáveis por hora de operação.
+        8. Custo Operacional Total (COP): Soma os custos fixos e variáveis por unidade operacional.
+        9. Capacidade de Campo Operacional (CCO): Mede a eficiência de um equipamento em hectares por hora.
+        
+        Insira os valores solicitados para obter os cálculos de forma precisa!
+      `;
+      alert(helpText);
+    }
+  </script>
+</body>
+</html>
